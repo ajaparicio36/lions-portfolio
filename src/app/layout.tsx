@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Your Esports Team Portfolio",
+  title: "GLE Hiraya",
   description: "Showcase of our team achievements and information",
 };
 
