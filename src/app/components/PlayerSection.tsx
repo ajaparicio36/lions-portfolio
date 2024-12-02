@@ -31,51 +31,43 @@ export default function PlayerSection({ player, index }: PlayerSectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="h-screen relative flex items-center overflow-hidden bg-gradient-to-br from-background to-muted"
+      className="min-h-screen relative flex items-center overflow-hidden bg-gradient-to-br from-background to-muted px-4"
     >
-      <div className="container mx-auto px-4 h-full flex items-center">
-        <div className="flex items-center w-full h-full relative">
-          <motion.div
-            className="absolute inset-0 flex items-center "
-            style={{ scale: imageScale, x: imageX }}
-          >
-            <Image
-              src={`/players/${player.ign.toLowerCase()}.jpg`}
-              alt={player.name}
-              width={1200}
-              height={1200}
-              className="w-full h-[90vh] object-contain object-center rounded-lg"
-              priority={index === 0}
-            />
-          </motion.div>
+      <div className="container mx-auto h-full flex flex-col md:flex-row items-center justify-center">
+        <motion.div
+          className="w-full md:w-1/2 mb-8 md:mb-0"
+          style={{ scale: imageScale, x: imageX }}
+        >
+          <Image
+            src={`/players/${player.ign.toLowerCase()}.jpg`}
+            alt={player.name}
+            width={600}
+            height={600}
+            className="w-full max-w-[300px] md:max-w-[600px] h-auto object-contain mx-auto"
+            priority={index === 0}
+          />
+        </motion.div>
 
-          <motion.div
-            className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center"
-            style={{ opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0]) }}
+        <motion.div
+          className="w-full md:w-1/2 text-center md:text-left"
+          style={{ opacity: contentOpacity, x: contentX }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">
+            {player.name}
+          </h2>
+          <p className="text-xl md:text-2xl text-secondary mb-2">
+            {player.ign}
+          </p>
+          <p className="text-lg md:text-xl text-muted-foreground mb-4">
+            {player.role}
+          </p>
+          <button
+            onClick={() => setShowAchievements(true)}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 px-4 rounded-md transition-colors"
           >
-            <h2 className="text-4xl font-bold text-primary mb-2">
-              {player.name}
-            </h2>
-            <p className="text-2xl text-secondary">{player.ign}</p>
-          </motion.div>
-
-          <motion.div
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-card/80 backdrop-blur-sm p-8 rounded-l-lg max-w-md"
-            style={{ opacity: contentOpacity, x: contentX }}
-          >
-            <h2 className="text-3xl font-bold text-primary mb-2">
-              {player.name}
-            </h2>
-            <p className="text-2xl text-secondary mb-2">{player.ign}</p>
-            <p className="text-xl text-muted-foreground mb-4">{player.role}</p>
-            <button
-              onClick={() => setShowAchievements(true)}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-2 px-4 rounded-md transition-colors"
-            >
-              Achievements
-            </button>
-          </motion.div>
-        </div>
+            Full Achievements
+          </button>
+        </motion.div>
       </div>
       {showAchievements && (
         <FullAchievements
